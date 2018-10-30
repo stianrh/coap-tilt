@@ -16,11 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     foreach($data['values'] as $row) {
         foreach($row as $key => $val) {
-            $sql_insert = "INSERT INTO `coap` (`uri`, `key`, `value`)
-            VALUES ('$uri', '$key', '$val')";
-            if (!mysqli_query($conn, $sql_insert)) {
-                echo "Error: " . $sql_insert . "<br>" . mysqli_error($conn);
+            if($key === 'key'){
+                $key_name = $val;
+            } else if($key === 'value'){
+                $value_val = $val;
             }
+        }
+        $sql_insert = "INSERT INTO `coap` (`uri`, `key`, `value`)
+        VALUES ('$uri', '$key_name', '$value_val')";
+        if (!mysqli_query($conn, $sql_insert)) {
+            echo "Error: " . $sql_insert . "<br>" . mysqli_error($conn);
         }
     }
 }
