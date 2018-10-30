@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(([^/]+/)*[^./]+)$ /coap/$1/ [R=301,L]
+RewriteRule ^(.*)$ /coap/index.php [NC,L,QSA]
